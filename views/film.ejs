@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css">
+        <title>Films</title>
+    </head>
+    <body>
+
+        <strong>Film (<%= count %>)</strong>
+
+        <br>
+        <br>
+
+        <button><a href="/?limit=10">10</a></button>
+        <button><a href="/?limit=20">20</a></button>
+        <button><a href="/?limit=50">50</a></button>
+
+        <br>
+        <br>
+
+        <% for(var i=1; i <= Math.ceil(count/limit); i++) { %>
+            <button><a href="/?page=<%= i %>&limit=<%= limit %>&order=<%= order %>"><%= i %></a></button>
+        <% } %>
+
+        <br>
+        <br>
+
+
+        <table>
+            <tr>
+                <th><a class="orderLink" href="/?order=id">ID</a></th>
+                <th><a class="orderLink" href="/?order=titre">Titre</a></th>
+                <th><a class="orderLink" href="/?order=resum">Resum</a></th>
+                <th><a class="orderLink" href="/?order=date_debut_affiche">Date debut affiche</a></th>
+                <th><a class="orderLink" href="/?order=date_fin_affiche">Date fin affiche</a></th>
+                <th><a class="orderLink" href="/?order=duree_minutes">Durée minutes</a></th>
+                <th><a class="orderLink" href="/?order=annee_production">Année production</a></th>
+            </tr>
+            <% for(var i=0; i < films.length; i++) { %>
+                <tr>
+                    <td><%= films[i].id %></td>
+                    <td><%= films[i].titre %></td>
+                    <td><%= films[i].resum %></td>
+                    <td><%= films[i].date_debut_affiche %></td>
+                    <td><%= films[i].date_fin_affiche %></td>
+                    <td><%= films[i].duree_minutes %></td>
+                    <td><%= films[i].annee_production %></td>
+                </tr>
+            <% } %>
+        </table>
+
+    </body>
+
+    <script>
+
+        document.querySelectorAll(".orderLink").forEach((el) => {
+            el.addEventListener('click', function(e) {
+                var desc = el.getAttribute("desc")
+                var href = el.getAttribute("href")
+
+                if (desc) {
+                    el.setAttribute("href", href + "&desc=1")
+                    el.setAttribute("desc", false)
+                }
+                else {
+                    el.setAttribute("desc", true)
+                }
+            })
+        })
+
+    </script>
+
+</html>
